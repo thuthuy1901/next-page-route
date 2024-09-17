@@ -1,26 +1,26 @@
 import TokenManager, { injectBearer } from 'brainless-token-manager';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-
-export const BASE_API = 'https://api-test-web.agiletech.vn';
+import { API_PATH, BASE_API } from './constant';
+import { Login } from '@/store/constant';
 
 const tokenManager = new TokenManager({
     getAccessToken: async () => {
-        const token = Cookies.get('accessToken');
+        const token = Cookies.get(Login.Access_Token);
         return `${token}`;
     },
     getRefreshToken: async () => {
-        const refreshToken = Cookies.get('refreshToken');
+        const refreshToken = Cookies.get(Login.Refresh_Token);
 
         return `${refreshToken}`;
     },
     onInvalidRefreshToken: () => {
-        Cookies.remove('accessToken');
-        Cookies.remove('refreshToken');
+        Cookies.remove(Login.Access_Token);
+        Cookies.remove(Login.Refresh_Token);
     },
 
     executeRefreshToken: async () => {
-        const refreshToken = Cookies.get('accessToken');
+        const refreshToken = Cookies.get(Login.Access_Token);
 
         if (!refreshToken) {
             return {
@@ -29,7 +29,7 @@ const tokenManager = new TokenManager({
             };
         }
 
-        const response = await axiosInstant.post('/auth/refresh-token', {
+        const response = await axiosInstant.post(API_PATH.REFRESH_TOKEN, {
             refreshToken,
         });
         const { accessToken: accessTokenNew, refreshToken: refreshTokenNew } =
@@ -42,8 +42,8 @@ const tokenManager = new TokenManager({
     },
     onRefreshTokenSuccess: ({ token, refresh_token }) => {
         if (token && refresh_token) {
-            Cookies.set('accessToken', token);
-            Cookies.set('refreshToken', refresh_token);
+            Cookies.set(Login.Access_Token, token);
+            Cookies.set(Login.Refresh_Token, refresh_token);
         }
     },
 });

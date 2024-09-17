@@ -1,4 +1,4 @@
-import { listPost } from '@/store';
+import { listPost } from '@/store/jotai';
 import { Card, List, Tag } from 'antd';
 import { useAtom } from 'jotai';
 

@@ -5,9 +5,11 @@ import { useRouter } from 'next/navigation';
 import { useAtom } from 'jotai';
 import Cookies from 'js-cookie';
 import useToast from './useToast';
-import { username } from '@/store';
-import { BASE_API } from '@/service/request';
+import { username } from '@/store/jotai';
+import { BASE_API } from '@/api/request';
 import { useTranslations } from 'use-intl';
+import { API_PATH } from '@/api/constant';
+import { Login } from '@/store/constant';
 
 const useLogin = () => {
     const t = useTranslations('toast');
@@ -19,7 +21,7 @@ const useLogin = () => {
     const onLogin = useCallback(async (username: string) => {
         setIsLoading(true);
         try {
-            const response = await axios.post(`${BASE_API}/auth/login`, {
+            const response = await axios.post(API_PATH.AUTH_LOGIN, {
                 username,
             });
 
@@ -27,9 +29,9 @@ const useLogin = () => {
                 const { accessToken, refreshToken } = response.data;
 
                 router.push(`/post`);
-                Cookies.set('accessToken', accessToken);
-                Cookies.set('refreshToken', refreshToken);
-                Cookies.set('username', username);
+                Cookies.set(Login.Access_Token, accessToken);
+                Cookies.set(Login.Refresh_Token, refreshToken);
+                Cookies.set(Login.Username, username);
 
                 notifySuccess(t('succ'));
                 setUser(username);

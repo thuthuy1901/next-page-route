@@ -1,10 +1,10 @@
 import { useAtom } from 'jotai';
 import { useEffect } from 'react';
 import ListPost from './ListPost';
-import { allInfoPost } from '@/store';
-import { axiosInstant, tokenManagerInstance } from '@/service/request';
+import { axiosInstant, tokenManagerInstance } from '@/api/request';
 import { useTranslations } from 'use-intl';
-// import { useTranslation } from '@/app/i18n';
+import { API_PATH } from '@/api/constant';
+import { allInfoPost } from '@/store/jotai';
 
 const BodyPostPage = () => {
     const t = useTranslations('postPage');
@@ -13,7 +13,7 @@ const BodyPostPage = () => {
         try {
             const respond = await tokenManagerInstance(
                 axiosInstant.get,
-                '/posts'
+                API_PATH.GET_POSTS
             );
             setAllInfoPost(respond.data);
         } catch (error) {

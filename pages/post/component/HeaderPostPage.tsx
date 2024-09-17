@@ -1,7 +1,7 @@
-import iconUser from '../../../../public/userIcon.png';
+import iconUser from '../../../public/userIcon.png';
 import Image from 'next/image';
 import { useAtom } from 'jotai';
-import { username } from '@/store';
+import { username } from '@/store/jotai';
 import useLogout from '@/hook/useLogout';
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'use-intl';

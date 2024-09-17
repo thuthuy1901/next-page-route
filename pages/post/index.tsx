@@ -15,7 +15,7 @@ export async function getStaticProps(context: any) {
         props: {
             messages: (
                 await import(
-                    `../../../public/locales/${context.locale}/${context.locale}.json`
+                    `../../public/locales/${context.locale}/${context.locale}.json`
                 )
             ).default,
         },

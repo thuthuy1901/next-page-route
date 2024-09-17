@@ -1,7 +1,8 @@
 import { atom } from 'jotai';
 import Cookies from 'js-cookie';
+import { Login } from '../constant';
 
-export const username = atom<string>(Cookies.get('username') || '');
+export const username = atom<string>(Cookies.get(Login.Username) || '');
 
 export type allInfoPostType = {
     current_page: number;
