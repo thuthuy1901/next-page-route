@@ -1,5 +1,7 @@
 import HeaderPostPage from './component/HeaderPostPage';
 import BodyPostPage from './component/BodyPostPage';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import nextI18NextConfig from '../../next-i18next.config';
 
 export default function PostPage() {
     return (
@@ -8,4 +10,17 @@ export default function PostPage() {
             <BodyPostPage />
         </section>
     );
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function getStaticProps({ locale }: any) {
+    return {
+        props: {
+            ...(await serverSideTranslations(
+                locale,
+                ['common'],
+                nextI18NextConfig
+            )),
+        },
+    };
 }

@@ -2,6 +2,7 @@ import useLogin from '@/hook/useLogin';
 import { Button, Form, Input } from 'antd';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import nextI18NextConfig from '../next-i18next.config';
 
 type ValueSubmit = {
     username: string;
@@ -14,6 +15,7 @@ export default function LoginPage() {
         const { username } = values;
         if (username) onLogin(username);
     };
+
     return (
         <section className="min-w-screen min-h-screen bg-background flex flex-col justify-center items-center">
             <h1 className="text-[32px] leading-10">{t('loginPage.title')}</h1>
@@ -50,7 +52,11 @@ export default function LoginPage() {
 export async function getStaticProps({ locale }: any) {
     return {
         props: {
-            ...(await serverSideTranslations(locale, ['common'])),
+            ...(await serverSideTranslations(
+                locale,
+                ['common'],
+                nextI18NextConfig
+            )),
         },
     };
 }
