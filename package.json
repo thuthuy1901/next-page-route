@@ -17,7 +17,7 @@
     "jotai": "^2.9.3",
     "js-cookie": "^3.0.5",
     "next": "14.2.11",
-    "next-i18next": "^15.3.1",
+    "next-i18next": "^11.3.0",
     "rc-util": "^5.43.0",
     "react": "^18",
     "react-dom": "^18",
