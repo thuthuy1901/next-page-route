@@ -46,6 +46,7 @@ export default function LoginPage() {
     );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function getStaticProps({ locale }: any) {
     return {
         props: {

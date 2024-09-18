@@ -12,6 +12,7 @@ import { Login } from '@/store/constant';
 const useLogin = () => {
     const { t } = useTranslation('common');
     const router = useRouter();
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [_, setUser] = useAtom(username);
     const { notifySuccess, notifyError } = useToast();
     const [isLoading, setIsLoading] = useState<boolean>(false);

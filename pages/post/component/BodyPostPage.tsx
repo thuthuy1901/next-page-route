@@ -8,6 +8,7 @@ import { allInfoPost } from '@/store/jotai';
 
 const BodyPostPage = () => {
     const { t } = useTranslation('common');
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [_, setAllInfoPost] = useAtom(allInfoPost);
     const fetchPosts = async () => {
         try {

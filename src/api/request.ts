@@ -56,8 +56,10 @@ export const axiosInstant = axios.create({
 });
 
 export const tokenManagerInstance = async (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     request: any,
     suffixUrl: string,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     configs?: any
 ) => {
     const token: string = configs?.token
