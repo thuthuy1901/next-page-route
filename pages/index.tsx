@@ -1,13 +1,14 @@
 import useLogin from '@/hook/useLogin';
 import { Button, Form, Input } from 'antd';
-import { useTranslations } from 'use-intl';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 type ValueSubmit = {
     username: string;
 };
 
 export default function LoginPage() {
-    const t = useTranslations('loginPage');
+    const { t } = useTranslation('common');
     const { onLogin, isLoading } = useLogin();
     const onFinish = async (values: ValueSubmit) => {
         const { username } = values;
@@ -15,17 +16,20 @@ export default function LoginPage() {
     };
     return (
         <section className="min-w-screen min-h-screen bg-background flex flex-col justify-center items-center">
-            <h1 className="text-[32px] leading-10">{t('title')}</h1>
+            <h1 className="text-[32px] leading-10">{t('loginPage.title')}</h1>
             {isLoading && <p>Loading...</p>}
             <Form name="simple_form" onFinish={onFinish} layout="vertical">
                 <Form.Item
-                    label={t('label')}
+                    label={t('loginPage.label')}
                     name="username"
                     rules={[
                         { required: true, message: 'Please input something!' },
                     ]}
                 >
-                    <Input placeholder={t('placeholder')} className="rounded" />
+                    <Input
+                        placeholder={t('loginPage.placeholder')}
+                        className="rounded"
+                    />
                 </Form.Item>
 
                 <Form.Item className="flex justify-center">
@@ -34,7 +38,7 @@ export default function LoginPage() {
                         htmlType="submit"
                         className="bg-button rounded text-black"
                     >
-                        {t('button')}
+                        {t('loginPage.button')}
                     </Button>
                 </Form.Item>
             </Form>
@@ -42,14 +46,10 @@ export default function LoginPage() {
     );
 }
 
-export async function getStaticProps(context: any) {
+export async function getStaticProps({ locale }: any) {
     return {
         props: {
-            messages: (
-                await import(
-                    `../public/locales/${context.locale}/${context.locale}.json`
-                )
-            ).default,
+            ...(await serverSideTranslations(locale, ['common'])),
         },
     };
 }

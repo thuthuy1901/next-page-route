@@ -9,15 +9,3 @@ export default function PostPage() {
         </section>
     );
 }
-
-export async function getStaticProps(context: any) {
-    return {
-        props: {
-            messages: (
-                await import(
-                    `../../public/locales/${context.locale}/${context.locale}.json`
-                )
-            ).default,
-        },
-    };
-}

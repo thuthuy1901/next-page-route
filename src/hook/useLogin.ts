@@ -1,18 +1,16 @@
 import { useState, useCallback } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-// import { BASE_API } from '../service/resquest';
 import { useAtom } from 'jotai';
 import Cookies from 'js-cookie';
 import useToast from './useToast';
 import { username } from '@/store/jotai';
-import { BASE_API } from '@/api/request';
-import { useTranslations } from 'use-intl';
+import { useTranslation } from 'next-i18next';
 import { API_PATH } from '@/api/constant';
 import { Login } from '@/store/constant';
 
 const useLogin = () => {
-    const t = useTranslations('toast');
+    const { t } = useTranslation('common');
     const router = useRouter();
     const [_, setUser] = useAtom(username);
     const { notifySuccess, notifyError } = useToast();
@@ -33,13 +31,13 @@ const useLogin = () => {
                 Cookies.set(Login.Refresh_Token, refreshToken);
                 Cookies.set(Login.Username, username);
 
-                notifySuccess(t('succ'));
+                notifySuccess(t('toast.succ'));
                 setUser(username);
             } else {
                 throw new Error('Login fail');
             }
         } catch {
-            notifyError(t('err'));
+            notifyError(t('toast.err'));
         } finally {
             setIsLoading(false);
         }

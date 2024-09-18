@@ -1,13 +1,14 @@
+'use client';
 import iconUser from '../../../public/userIcon.png';
 import Image from 'next/image';
 import { useAtom } from 'jotai';
 import { username } from '@/store/jotai';
 import useLogout from '@/hook/useLogout';
 import { useEffect, useState } from 'react';
-import { useTranslations } from 'use-intl';
+import { useTranslation } from 'next-i18next';
 
 export default function HeaderPostPage() {
-    const t = useTranslations('postPage');
+    const { t } = useTranslation('common');
     const { onLogout } = useLogout();
     const [name] = useAtom(username);
 
@@ -27,7 +28,7 @@ export default function HeaderPostPage() {
                 <Image src={iconUser} alt="iconUser" />
                 <p className="mb-0">{name}</p>
             </div>
-            <button onClick={() => onLogout()}>{t('button')}</button>
+            <button onClick={() => onLogout()}>{t('postPage.button')}</button>
         </header>
     );
 }
